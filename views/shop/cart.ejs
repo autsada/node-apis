@@ -1,0 +1,31 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<body>
+  <%- include('../includes/navigation.ejs') %>
+
+  <main>
+    <% if (cart.products.length > 0) {
+        %>
+          <ul>
+            <%
+              for (let product of cart.products) {%>
+                <li>
+                  <p><%= product.title %> - qty: <%= product.qty %> - price: $<%= product.price %> : amount: $<%= product.amount %></p>
+                  <form action="/delete-cart-item" method="post" >
+                    <button class="btn" type="submit" >Delete</button>
+                    <input type="hidden" name="productId" value="<%= product.id %>">
+                  </form>
+                </li>
+              <%}
+            %>
+          </ul>
+          <h2 class="product__price">Total Amount: $<%= cart.totalPrice %></h2>
+        <%
+    } else {
+        %>
+            <h1>No Products in Cart</h1>
+        <%
+    } %>
+  </main>
+  
+<%- include('../includes/bottom.ejs') %>
